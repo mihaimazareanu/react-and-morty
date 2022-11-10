@@ -2,11 +2,11 @@ import "./App.css";
 
 function App() {
   return (
-    <main className="App">
+    <body className="App">
       <header>
         <h1>React and Morty</h1>
       </header>
-      <body>
+      <main>
         <section>
           <article>
             <img
@@ -17,16 +17,16 @@ function App() {
             <button type="button">show more</button>
           </article>
         </section>
-      </body>
-      <foote>
+      </main>
+      <footer>
         <navbar>
           <a>Nav1</a>
           <a>Nav2</a>
           <a>Nav3</a>
           <a>Nav4</a>
         </navbar>
-      </foote>
-    </main>
+      </footer>
+    </body>
   );
 }
 
