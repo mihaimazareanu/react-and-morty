@@ -1,32 +1,24 @@
-import "./App.css";
+import logo from './logo.svg';
+import './App.css';
 
 function App() {
   return (
-    <main className="App">
-      <header>
-        <h1>React and Morty</h1>
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
       </header>
-      <body>
-        <section>
-          <article>
-            <img
-              src="https://rickandmortyapi.com/api/character/avatar/2.jpeg"
-              alt="Photo"
-            />
-            <h2>Character name</h2>
-            <button type="button">show more</button>
-          </article>
-        </section>
-      </body>
-      <foote>
-        <navbar>
-          <a>Nav1</a>
-          <a>Nav2</a>
-          <a>Nav3</a>
-          <a>Nav4</a>
-        </navbar>
-      </foote>
-    </main>
+    </div>
   );
 }
 
