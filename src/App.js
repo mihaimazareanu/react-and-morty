@@ -1,27 +1,31 @@
 import styled from "styled-components";
+import useFetch from "./hooks/useFetch";
 
 function App() {
+  const [data, setData] = useFetch(
+    "https://rickandmortyapi.com/api/character",
+    "results"
+  );
   return (
     <AppContainer>
       <Header>
         <Title>React and Morty</Title>
       </Header>
       <AppGrid>
-        <CardContainer>
-          <img
-            src="https://rickandmortyapi.com/api/character/avatar/2.jpeg"
-            alt="Photo"
-          />
-          <h2>Character name</h2>
-          <button type="button">show more</button>
-        </CardContainer>
+        {data.map((character) => (
+          <CardContainer>
+            <img src={character.image} alt="character photo" />
+            <h2>{character.name}</h2>
+            <Button>show more</Button>
+          </CardContainer>
+        ))}
       </AppGrid>
       <FooterContainer>
         <NavbarContainer>
-          <a>Nav1</a>
-          <a>Nav2</a>
-          <a>Nav3</a>
-          <a>Nav4</a>
+          <a href="#">Nav1</a>
+          <a href="#">Nav2</a>
+          <a href="#">Nav3</a>
+          <a href="#">Nav4</a>
         </NavbarContainer>
       </FooterContainer>
     </AppContainer>
@@ -40,6 +44,9 @@ const Header = styled.header`
   display: flex;
   align-items: center;
   justify-content: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
 `;
 
 const Title = styled.h1`
@@ -52,7 +59,8 @@ const AppGrid = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 1rem;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
 `;
 
 const CardContainer = styled.article`
@@ -64,6 +72,7 @@ const CardContainer = styled.article`
   justify-content: center;
   border: 3px solid #ccd;
   border-radius: 10px;
+  margin: 1rem;
 `;
 
 const FooterContainer = styled.footer`
@@ -79,4 +88,11 @@ const NavbarContainer = styled.nav`
   justify-content: space-around;
   align-items: center;
   height: 100%;
+`;
+
+const Button = styled.button`
+  background-color: lightblue;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 1rem;
 `;
