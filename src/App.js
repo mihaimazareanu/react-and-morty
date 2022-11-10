@@ -1,7 +1,9 @@
-import "./App.css";
+import logo from './logo.svg';
+import './App.css';
 
 function App() {
   return (
+
     <body className="App">
       <header>
         <h1>React and Morty</h1>
@@ -27,6 +29,8 @@ function App() {
         </navbar>
       </footer>
     </body>
+
+    
   );
 }
 
