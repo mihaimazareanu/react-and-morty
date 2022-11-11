@@ -1,29 +1,84 @@
 import styled from "styled-components";
 import useFetch from "./hooks/useFetch";
+import { useState } from "react";
 
 function App() {
   const [data, setData] = useFetch(
     "https://rickandmortyapi.com/api/character",
     "results"
   );
+
+  const [page, setPage] = useState("home");
+  const [characterId, setCharacterId] = useState("");
+  const [showDetails, setShowDetails] = useState(false);
+
+  const changePage = (newPage) => {
+    setPage(newPage);
+  };
+
+  const showCharacter = (id) => {
+    setPage("character");
+    setCharacterId(id);
+  };
+
+  const toggleDetails = () => {
+    setShowDetails(!showDetails);
+    console.log(characterToDisplay.status);
+    console.log(characterToDisplay.species);
+    console.log(characterToDisplay.gender);
+  };
+
+  const characterToDisplay = data.find(
+    (character) => character.id === characterId
+  );
+
   return (
     <AppContainer>
       <Header>
         <Title>React and Morty</Title>
       </Header>
       <AppGrid>
-        {data.map((character) => (
-          <CardContainer>
-            <img src={character.image} alt="character photo" />
-            <h2>{character.name}</h2>
-            <Button>show more</Button>
-          </CardContainer>
-        ))}
+        {page === "home" &&
+          data.map((character) => (
+            <CardContainer>
+              <ImgContainer src={character.image} alt="character photo" />
+              <h2>{character.name}</h2>
+              <Button onClick={() => showCharacter(character.id)}>
+                show more
+              </Button>
+            </CardContainer>
+          ))}
+
+        {page === "character" && (
+          <CharacterPage>
+            <CardContainer>
+              <ImgContainer
+                src={characterToDisplay.image}
+                alt="character photo"
+              />
+              <h2>{characterToDisplay.name}</h2>
+              <Button onClick={toggleDetails}>
+                {showDetails ? "hide details" : "show details"}
+              </Button>
+              {showDetails && (
+                <>
+                  <p>Status: {characterToDisplay.status}</p>
+                  <p>Species: {characterToDisplay.species}</p>
+                  <p>Gender: {characterToDisplay.gender}</p>
+                </>
+              )}
+            </CardContainer>
+          </CharacterPage>
+        )}
       </AppGrid>
       <FooterContainer>
         <NavbarContainer>
-          <a href="#">Nav1</a>
-          <a href="#">Nav2</a>
+          <a href="#" onClick={() => changePage("home")}>
+            Home
+          </a>
+          <a href="#" onClick={() => changePage("favourite")}>
+            Character
+          </a>
           <a href="#">Nav3</a>
           <a href="#">Nav4</a>
         </NavbarContainer>
@@ -73,6 +128,7 @@ const CardContainer = styled.article`
   border: 3px solid #ccd;
   border-radius: 10px;
   margin: 1rem;
+  padding-top: 1rem;
 `;
 
 const FooterContainer = styled.footer`
@@ -95,4 +151,16 @@ const Button = styled.button`
   border: none;
   border-radius: 5px;
   margin-bottom: 1rem;
+`;
+
+const CharacterPage = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
+const ImgContainer = styled.img`
+  border-radius: 50%;
 `;
